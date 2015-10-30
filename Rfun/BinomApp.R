@@ -1,5 +1,8 @@
 #--------------------------95% CI Interval Reference Sheet, Binomial Response----------------------#
-# install.packages(c("shiny", "htmlwidgets"))
+# This shiny program produces a 95% confidence interval reference sheet based on a binomial response
+# with the respective input N (study size) and type of interval (taken from binom package)
+
+# install.packages(c("shiny", "htmlwidgets", "binom"))
 library(binom)
 library(shiny)
 delta<-0.1
@@ -37,8 +40,8 @@ server <- function(input, output) {
       plotdat<-binom.confint(0:N,N,conf.level=level,method=input$int.type)
       # Plot means
       plot(plotdat$mean,plotdat$x,
-         ylab=input$xlabel,
-         xlab=input$ylabel,
+         ylab=input$ylabel,
+         xlab=input$xlabel,
          pch=16)
       # Find Minimal Response Needed to Reject Null
       min.numres<- min(plotdat$x[plotdat$lower>input$int.null])
